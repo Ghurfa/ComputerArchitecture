@@ -348,3 +348,8 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+#JVM stuff - has own repo
+JavaVirtualMachine/
+src/
+src.zip

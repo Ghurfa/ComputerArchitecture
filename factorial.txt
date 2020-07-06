@@ -1,0 +1,68 @@
+set r0 [call]
+psh r0
+
+set r0 0000
+set r1 0001
+str r1 r0
+psh r0
+
+set r0 0005
+psh r0
+
+cll [factorial]
+[call]
+
+jmp [endOfProg]
+
+[factorial]
+pop r1
+pop r3 
+set r0 0001
+lse r1 r0 r2
+jif r2 [endOfFunc]
+lod r0 r3
+mul r0 r1 r1
+str r1 r3
+
+set r4 [endOfFunc]
+psh r4
+psh r3
+dec r1
+psh r1
+cll [factorial]
+
+[endOFunc]
+ret
+
+[endOfProg]
+
+Machine code:
+0x0000  31 00 00 09
+0x0001  50 00 00 00
+0x0002  31 00 00 00
+0x0003  31 01 00 01
+0x0004  35 01 00 00
+0x0005  50 00 00 00
+0x0006  31 00 00 05
+0x0007  50 00 00 00
+0x0008  42 00 00 0A
+0x0009  40 00 00 19
+
+0x000A  51 00 01 00
+0x000B  51 00 03 00
+0x000C  31 00 00 01
+0x000D  23 01 00 02
+0x000E  41 02 00 18
+0x000F  34 00 03 00
+0x0010  03 00 01 01
+0x0011  35 01 03 00
+0x0012  31 04 00 18
+0x0013  50 00 04 00
+0x0014  50 00 03 00
+0x0015  37 00 01 00
+0x0016  50 00 01 00
+0x0017  42 00 00 0A
+
+0x0018  ret
+
+0x0019  40 00 00 19

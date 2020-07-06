@@ -1,0 +1,99 @@
+INSTRUCTION:
+32-bit
+First byte: operation
+
+OPERATIONS:
+00      no op       nop     ,           ,           ,
+
+10      add         add     src1,       src2,       dest
+11      subtract    sub     src1,       src2,       dest     
+12      multiply    mul     src1,       src2,       dest 
+13      divide      div     src1,       src2,       dest 
+14      modulo      mod     src1,       src2,       dest 
+
+20      and         and     src1,       src2,       dest 
+21      or          orr     src1,       src2,       dest 
+22      xor         xor     src1,       src2,       dest 
+23      not         not     ,           src,        dest
+24      left shift  lsh     src1,       src2,       dest 
+25      right shift rsh     src1,       src2,       dest 
+
+30      equals      equl    src1,       src2,       dest 
+31      less        less    src1,       src2,       dest
+32      greater     grtr    src1,       src2,       dest
+33      less or eql lseq    src1,       src2,       dest 
+34      grtr or eql greq    src1,       src2,       dest
+
+40      set         set     dest,       value
+41      copy        copy    ,           src,        dest
+42      load        load    reg,        address
+43      store       stor    reg,        address
+44      load indir  lodi    ,           reg,        addr in reg
+45      store indir stri    ,           reg,        addr in reg
+46      increment   incr    reg,        howMuch
+47      decrement   decr    reg,        howMuch
+
+50      jump        jump    ,           address
+51      jump if     jmpf    src,        address
+52      jump if not jifn    src,        address
+53      jump indir  jind    ,           addr in reg ,    
+54      jmpf indir  jifi    ,           src,        addr in reg 
+55      jifn indir  jfni    ,           src,        addr in reg 
+56      return      ret    ,           num of parameters
+
+60      push        push    ,           src         ,
+61      pop         popp    ,           dest        ,          
+62      peek        peek    dest,       offset  
+
+70      loadProg    lprg    dest,       progMem address
+71      prnt string prts    ,           addr in reg ,
+72      draw img    dimg    ,           addr in reg ,
+
+false: Least significant digit is 0
+true: Least significant digit is 1
+
+CALLING CONVENTION:
+
+Call: 
+    Pushes parameters to the stack right-to-left
+    Pushes its own address + 1 to the stack (where to return to)
+    Pushes memory address to store return value
+    Jumps to new address
+Function:
+    Peeks to access parameters
+Return:
+    Pops to reg 1F (address to store return value in)
+    Store [return value] into memory address that is stored in reg 1F
+    Pops to reg 1F (now it is the address to return to)
+    Pops all parameters
+    Jump to address stored in reg 1F
+
+REGISTERS
+    00 to 1F (32 of them)
+
+
+MEMORY:
+0000 to 00FF: MMIO
+0100 to 3FFF: RAM
+4000 to 7FFF: Stack 
+8000 to FFFF: Program
+
+MMIO:
+0001: Random Number
+0002: Read
+0003: Read flag
+0004: Write int
+0005: Write int flag
+0006: Write char
+0007: Write char flag
+
+00C0-0100: Screen (Each short is a pixel)
+    Least significant 5 bits: Red
+    Middle 5 bits: Green
+    Next 5 bits: Blue
+
+PROGMEM:
+string: "string"
+number: number (short)
+number array: arrayLength (not including the arrayLength item), num1, num2, etc... (shorts)
+    The assembler inserts the arrayLength item

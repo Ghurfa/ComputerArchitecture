@@ -1,0 +1,64 @@
+//r0 is start address, r1 is end address, r4 is num to mod by (100)
+0x0000  sett r1 1064
+0x0001  sett r0 1000
+0x0002  sett r4 0064
+
+//Generate array between 1000 and 1063 (inclusive)
+0x0003  equl r0 r1 r2
+0x0004  jmpf r2 000A
+0x0005  load r3 0001 (0001 is random num addr)
+0x0006  mod r3 r4 r3
+0x0007  stri r3 r0
+0x0008  incr r0 0001
+0x0009  jump 0003
+
+//r0 is counter, r1 is max, r2 is whether you have reached the max, r3 is pointer, r4 is sum, r5 is value
+0x000A  sett r0 0000
+0x000B  sett r1 0014
+0x000C  sett r3 1000
+0x000D  sett r4 0000
+
+0x000E  equl r0 r1 r2
+0x000F  jmpf r2 0016
+0x0010  lodi r5 r3
+0x0011  add r4 r5 r4
+0x0012  copy r5 r3
+0x0013  incr r3 1000
+0x0014  incr r0 0001
+0x0015  jump 000E
+
+//end value is in r4
+0x0016  stor r4 0002 (0002 is num to print addr)
+0x0017  sett r0 FFFF
+0x0018  stor r0 0003 (0003 is print num flag addr)
+
+0x0019  jump 0019
+
+-----------------Machine Code-----------------
+
+0x0000  30 01 10 64
+0x0001  30 00 10 00
+0x0002  30 04 00 64
+0x0003  20 00 01 02
+0x0004  41 02 00 0A
+0x0005  32 03 00 00
+0x0006  05 03 04 03
+0x0007  35 03 00 00
+0x0008  36 00 00 01
+0x0009  40 00 00 03
+0x000A  30 00 00 00
+0x000B  30 01 00 14
+0x000C  30 03 10 00
+0x000D  30 04 00 00
+0x000E  20 00 01 02
+0x000F  41 02 00 16
+0x0010  34 05 03 00
+0x0011  01 04 05 04
+0x0012  31 00 05 03
+0x0013  36 03 10 00
+0x0014  36 00 00 01
+0x0015  40 00 00 0E
+0x0016  33 r4 00 02
+0x0017  30 00 FF FF
+0x0018  33 r0 00 03
+0x0019  40 00 00 19

@@ -1,0 +1,37 @@
+set r0 0001
+set r1 0002
+add r0 r1 r2
+stor r2 0004
+set r2 FFFF
+stor r2 0005
+jump [first]
+
+second:
+jmpf r2 [third]
+
+
+first:
+jump [second]
+
+third:
+set r2 0000 //e
+//werwre
+set r0 [end]
+jfni r2 r0
+
+set 41 2222
+end:
+lprg r0 stringToPrint
+prts r0
+lprg r0 imageData
+dimg r0
+
+the real end:
+jump [the real end]
+
+pRoGmEm:
+uselessString: "uselessString"
+stringToPrint: "String to print"
+imageData: 6620, 0000, 6620, 0000, 6620, 0000, 6620, 0000, 0000, 6620, 0000, 6620, 0000, 6620, 0000, 6620, 6620, 0000, 6620, 0000, 6620, 0000, 6620, 0000, 0000, 6620, 0000, 6620, 0000, 6620, 0000, 6620, 6620, 0000, 6620, 0000, 6620, 0000, 6620, 0000, 0000, 6620, 0000, 6620, 0000, 6620, 0000, 6620, 6620, 0000, 6620, 0000, 6620, 0000, 6620, 0000, 0000, 6620, 0000, 6620, 0000, 6620, 0000, 6620 
+numberrrrrroo(this is also useless): 52 
+emptyProgmem t h i n g:

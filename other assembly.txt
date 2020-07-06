@@ -1,0 +1,9 @@
+set r0 0000
+set r1 0001
+set r3 000F
+set r4 0000
+jmp 06
+add r0 r1 r0
+eql r0 r3 r4
+jif r4 
+jmp 04

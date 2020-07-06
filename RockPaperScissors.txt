@@ -1,0 +1,98 @@
+start:
+//r0 is read flag
+load r0 0003
+jmpf r0 [play]
+jump [start]
+play:
+
+//reset flag
+set r0 0000
+stor r0 0003
+
+//r0 is user choice, r1 is computer choice
+load r0 0002
+load r1 0001
+
+//Convert random number to r/p/s
+set r2 AAAA
+grtr r1 r2 r2
+jmpf r2 [compPaper]
+set r2 5555
+grtr r1 r2 r2
+jmpf r2 [compScissors]
+
+compRock:
+set r1 72
+jump [checkOutcome]
+
+compPaper:
+set r1 0070
+jump [checkOutcome]
+
+compScissors: 
+set r1 0073
+jump [checkOutcome]
+
+checkOutcome:
+equl r0 r1 r2
+jmpf r2 [tie]
+
+//Player is rock
+set r3 0072
+equl r0 r3 r2
+jmpf r2 [rock]
+
+//Player is paper
+set r3 0070
+equl r0 r3 r2
+jmpf r2 [paper]
+
+//Player is scissors
+jump [scissors]
+
+rock:
+//Computer is paper
+set r3 0070
+equl r1 r3 r2
+jmpf r2 [lose]
+//Computer is scissors
+jump [win]
+
+paper:
+//Computer is scissors
+set r3 0073
+equl r1 r3 r2
+jmpf r2 [lose]
+//Computer is rock
+jump [win]
+
+scissors:
+//Computer is rock
+set r3 0072
+equl r1 r3 r2
+jmpf r2 [lose]
+//Computer is paper
+jump [win]
+
+tie:
+set r0 0074
+stor r0 0006
+set r0 FFFF
+stor r0 0007
+jump [end]
+
+lose:
+set r0 006C
+stor r0 0006
+set r0 FFFF
+stor r0 0007
+jump [end]
+
+win:
+set r0 0077
+stor r0 0006
+set r0 FFFF
+stor r0 0007
+
+end:
+jump [end]

@@ -1,0 +1,23 @@
+set r0 0x0000
+set r1 0x0001
+add r0 r1 r0
+jmp 03
+
+OPERATIONS:
+    0x00
+    0x01  add
+    0x02  jmp
+    0x03  set
+
+REGISTERS:
+    0x00  r0
+    0x01  r1
+
+LINES:
+    0x03  line 3
+
+03 00 00 00
+03 01 00 01
+01 00 01 00
+02 00 00 03
+

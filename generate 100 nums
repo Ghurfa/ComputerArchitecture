@@ -1,0 +1,58 @@
+set r1 0064
+set r0 0000
+eql r0 r1 r2
+jif r2 0008
+lod r6 0000
+psh r6
+inc r0
+jmp 0003
+
+set r4 0000
+set r0 0000
+eql r0 r1 r2
+jif r2 12
+pop r3
+add r3 r4 r4
+inc r0
+jmp 0C
+
+str r4 0002
+set r5 0001
+str r5 0003
+
+machine code:
+31 01 00 64
+31 00 00 00
+20 00 01 02
+41 02 00 08
+34 06 00 00
+50 00 06 00
+36 00 00 00
+40 00 00 03
+
+31 04 00 00
+31 00 00 00
+20 00 01 02
+41 02 00 12
+51 00 03 00
+01 03 04 04
+36 00 00 00
+40 00 00 0C
+
+35 04 00 02
+31 05 00 01
+35 05 00 03
+
+guide:
+
+reg 00: counter
+reg 01: how many nums
+reg 02: whether the loop is finished
+reg 03: the popped value
+reg 04: the sum
+reg 05: the 1 value to flag
+reg 06: random number to push
+
+mem 0000: random number
+mem 0002: int to write
+mem 0003: write int flag
